@@ -10,6 +10,7 @@ import time
 from common.log_utils import logger
 from common.base_page import BasePage
 from common.element_data_utils import ElementDataUtils
+from common.browser import Browser
 webdriver_path=os.path.join(os.path.dirname(__file__),'..','webdriver','chromedriver.exe')
 
 class LoginPage(BasePage):
@@ -23,7 +24,7 @@ class LoginPage(BasePage):
         # self.password_inputbox=self.driver.find_element(By.XPATH,'//input[@name="password"]')
         # self.login_button=self.driver.find_element(By.XPATH,'//button[@id="submit"]')
         # self.keepLogin_checkbox=self.driver.find_element(By.XPATH,'//input[@name="keepLogin[]"]')
-        self.elements=ElementDataUtils(page_name='login_page').get_element_info()
+        self.elements=ElementDataUtils(module_name='login').get_element_info(page_name='login_page')
         self.username_inputbox=self.elements['username_inputbox']
         self.password_inputbox=self.elements['password_inputbox']
         self.login_button=self.elements['login_button']
@@ -61,8 +62,9 @@ class LoginPage(BasePage):
         self.cilck(self.login_button)
         time.sleep(2)
 if __name__=='__main__':
-    webdriver_path = os.path.join(os.path.dirname(__file__), '..', 'webdriver', 'chromedriver.exe')
-    driver=webdriver.Chrome(executable_path=webdriver_path)
+    # webdriver_path = os.path.join(os.path.dirname(__file__), '..', 'webdriver', 'chromedriver.exe')
+    # driver=webdriver.Chrome(executable_path=webdriver_path)
+    driver=Browser().get_driver()
     login_page=LoginPage(driver)
     login_page.open_url('http://47.107.178.45/zentao/www/index.php?m=user&f=login')
     login_page.set_browser_max()
